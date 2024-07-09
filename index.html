@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
+    <title>To do list</title>
+  </head>
+  <body class="bg-blue-300">
+    <!-- input section -->
+    <form class="bg-white form p-5 rounded-lg w-[650px] mx-auto mt-[90px]">
+      <div class="flex flex-col gap-5">
+        <span class="text-[25px] font-semibold"
+          >Do not waste time,be productive!</span
+        >
+        <div class="w-full flex items-center justify-between">
+          <input
+            type="text"
+            class="py-3 w-[79%] pl-5 border-slate-500 border-[1.5px] rounded-lg outline-none text-[18px] focus:shadow-lg focus:shadow-blue-500"
+            placeholder="Enter your major"
+          />
+          <button
+            class="bg-blue-500 w-[19%] p-2.5 font-semibold hover:opacity-50 duration-300 text-white rounded-lg text-[20px]"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+    <!-- buttons all,com,uncomp -->
+    <div
+      class="w-[650px] mt-3 mx-auto bg-white rounded-lg p-5 flex justify-between"
+    >
+      <button
+        class="all-btn bg-blue-500 w-[29%] p-2.5 hover:opacity-50 duration-300 text-white rounded-lg text-[20px]"
+      >
+        All (<span class="all-count">0</span>)
+      </button>
+      <button
+        class="comp-btn bg-blue-500 w-[29%] p-2.5 hover:opacity-50 duration-300 text-white rounded-lg text-[20px]"
+      >
+        Completed (<span class="comp-count">0</span>)
+      </button>
+      <button
+        class="uncomp-btn bg-blue-500 w-[29%] p-2.5 hover:opacity-50 duration-300 text-white rounded-lg text-[20px]"
+      >
+        Uncompleted (<span class="uncomp-count">0</span>)
+      </button>
+    </div>
+    <!-- list of todos -->
+    <ul class="w-[650px] mt-4 list mx-auto bg-white rounded-lg g-3 p-3"></ul>
+
+    <div
+      class="wrapper fixed top-[100%] duration-300 bottom-0 w-full backdrop-blur-md"
+      id="wrapper"
+    >
+      <div
+        class="modal duration-300 scale-0 absolute top-0 bottom-0 left-0 right-0 w-[400px] h-[200px] m-auto bg-green-300 rounded-lg"
+      ></div>
+    </div>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
