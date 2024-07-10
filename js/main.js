@@ -12,16 +12,24 @@ let allBtn = document.querySelector(".all-btn");
 let compBtn = document.querySelector(".comp-btn");
 let uncompBtn = document.querySelector(".uncomp-btn");
 
-let todos = [];
+let elChooseInput = document.querySelector(".choose-input");
+let elChooseImg = document.querySelector(".choose-img");
+
+let todos = JSON.parse(window.localStorage.getItem("todos")) || [];
+let choosenImg = null;
+
 // submit todos
 elForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const data = {
     id: todos.length + 1,
     value: e.target[0].value,
+    imgUrl: choosenImg,
     isCompleted: false,
   };
   todos.push(data);
+  window.localStorage.setItem("todos", JSON.stringify(todos));
+  elChooseImg.src = "./images/choose.png";
   renderTodos(todos, elList);
   e.target.reset();
 });
@@ -41,6 +49,7 @@ function renderTodos(arr, list) {
             <span class="font-bold text-[22px]">${item.value}</span>
             </div>
             <div class="flex items-center mt-3 gap-5">
+            <img src=${item.imgUrl} width="90" height="40"/>
             <input onclick={changeCheckbox(${
               item.id
             })} type="checkbox" class="form-checkbox scale-150">
@@ -61,16 +70,24 @@ function renderTodos(arr, list) {
     (item) => item.isCompleted == false
   ).length;
 }
+renderTodos(todos, elList);
+// adding image section
+elChooseInput.addEventListener("change", function (e) {
+  elChooseImg.setAttribute("src", URL.createObjectURL(e.target.files[0]));
+  choosenImg = URL.createObjectURL(e.target.files[0]);
+});
 // delete btn
 function deleteBtnClick(id) {
   const findedIndex = todos.findIndex((item) => item.id == id);
   todos.splice(findedIndex, 1);
+  window.localStorage.setItem("todos", JSON.stringify(todos));
   renderTodos(todos, elList);
 }
 // checkbox sectiom
 function changeCheckbox(id) {
   const findedObj = todos.find((item) => item.id == id);
   findedObj.isCompleted = !findedObj.isCompleted;
+  window.localStorage.setItem("todos", JSON.stringify(todos));
   renderTodos(todos, elList);
 }
 // update section
@@ -100,6 +117,8 @@ function secondUpdate(id) {
   updateObj.value = newValue;
   modalWrapper.classList.remove("!top-0");
   elModal.classList.remove("!scale-100");
+  window.localStorage.setItem("todos", JSON.stringify(todos));
+
   renderTodos(todos, elList);
 }
 // modal wrapper
